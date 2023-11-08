@@ -4,12 +4,13 @@ fn main() {
     {
         let bindings = bindgen::Builder::default()
             .header("u-tic-tac-toe/ttt_io.h")
+			.allowlist_file("u-tic-tac-toe/ttt_io.h")
             .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
             .generate()
             .expect("Unable to generate bindings");
 
         bindings
-            .write_to_file("src/ttt-io.rs")
+            .write_to_file("src/ttt_io.rs")
             .expect("Couldn't write bindings!");
     }
 
