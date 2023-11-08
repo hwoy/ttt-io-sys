@@ -10,7 +10,7 @@ fn main() {
             .expect("Unable to generate bindings");
 
         bindings
-            .write_to_file("src/ttt_io.rs")
+            .write_to_file("src/ttt_io_sys.rs")
             .expect("Couldn't write bindings!");
     }
 
