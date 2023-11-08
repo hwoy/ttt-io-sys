@@ -1,5 +1,5 @@
 [package]
-name = "ttt-io-rs"
+name = "ttt-io-sys"
 version = "0.1.0"
 edition = "2021"
 
