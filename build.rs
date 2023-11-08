@@ -4,7 +4,6 @@ fn main() {
     {
         let bindings = bindgen::Builder::default()
             .header("u-tic-tac-toe/ttt_io.h")
-			.newtype_enum("ox_gameid")
             .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
             .generate()
             .expect("Unable to generate bindings");
