@@ -5,6 +5,7 @@ fn main() {
         let bindings = bindgen::Builder::default()
             .header("u-tic-tac-toe/ttt_io.h")
             .allowlist_file("u-tic-tac-toe/ttt_io.h")
+            .clang_arg("-fvisibility=default")
             .clang_args(
                 ["EMSDK_INCLUDE_DIR", "WASI_INCLUDE_DIR"]
                     .iter()
