@@ -6,23 +6,6 @@ fn main() {
             .header("u-tic-tac-toe/ttt_io.h")
             .allowlist_file("u-tic-tac-toe/ttt_io.h")
             .clang_arg("-fvisibility=default")
-            .clang_args(
-                ["EMSDK_INCLUDE_DIR", "WASI_INCLUDE_DIR"]
-                    .iter()
-                    .filter_map(|x| {
-                        if let Ok(val) = std::env::var(x) {
-                            Some(val)
-                        } else {
-                            None
-                        }
-                    })
-                    .map(|x| {
-                        let mut s = "-I".to_string();
-                        s.push_str(&x);
-                        s
-                    })
-                    .collect::<Vec<String>>(),
-            )
             .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
             .generate()
             .expect("Unable to generate bindings");
