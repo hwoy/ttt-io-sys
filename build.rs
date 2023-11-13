@@ -5,20 +5,23 @@ fn main() {
         let bindings = bindgen::Builder::default()
             .header("u-tic-tac-toe/ttt_io.h")
             .allowlist_file("u-tic-tac-toe/ttt_io.h")
-            .clang_arg(if let Ok(val) = std::env::var("EMSDK_INCLUDE_DIR") {
-                let mut set_arg = "-I".to_string();
-                set_arg.push_str(&val);
-                set_arg
-            } else {
-                "".to_string()
-            })
-            .clang_arg(if let Ok(val) = std::env::var("WASI_INCLUDE_DIR") {
-                let mut set_arg = "-I".to_string();
-                set_arg.push_str(&val);
-                set_arg
-            } else {
-                "".to_string()
-            })
+            .clang_args(
+                ["EMSDK_INCLUDE_DIR", "WASI_INCLUDE_DIR"]
+                    .iter()
+                    .filter_map(|x| {
+                        if let Ok(val) = std::env::var(x) {
+                            Some(val)
+                        } else {
+                            None
+                        }
+                    })
+                    .map(|x| {
+                        let mut s = "-I".to_string();
+                        s.push_str(&x);
+                        s
+                    })
+                    .collect::<Vec<String>>(),
+            )
             .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
             .generate()
             .expect("Unable to generate bindings");
